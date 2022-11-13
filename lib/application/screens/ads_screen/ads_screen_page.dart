@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -19,10 +20,14 @@ class AdsScreen extends StatefulWidget {
 class _AdsScreenState extends State<AdsScreen> {
   List<AdEntity> ads = [];
   PaginationResult? paginationResult;
+  bool opacity = false;
   @override
   void initState() {
     super.initState();
     getAllAds();
+    Timer(Duration(milliseconds: 500), () {
+      opacity = true;
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,7 @@ class _AdsScreenState extends State<AdsScreen> {
                       crossAxisSpacing: 10.0,
                       crossAxisCount:MediaQuery.of(context).orientation == Orientation.portrait? 2:3),
                   itemBuilder: (context,index){
-                    return AdWidget(url:ads[index].coverImage ,onTap: (){},);
+                    return AdWidget(url:ads[index].coverImage ,onTap: (){},opacity: opacity,);
                   })
             ),
             SizedBox(
@@ -61,6 +66,7 @@ class _AdsScreenState extends State<AdsScreen> {
                   child: TextButton(
                       onPressed: (){
                         getAdsPerPage(index +1);
+
                       },
                       child: CircleAvatar(
                         backgroundColor: appTheme.appBarTheme.backgroundColor,
