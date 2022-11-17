@@ -14,10 +14,8 @@ class CategoriesDataImpl implements CategoriesDataSource {
   Future<List<CategoryEntity>> getCategoriesFromDataSource()async{
     List<CategoryEntity> categories = [];
     final response = await client.get(
-      Uri.parse(ConstantValues.baseUrl + 'category'),
-      headers: {
-        'Content-Type':'application/json'
-      }
+      Uri.parse('${ConstantValues.baseUrl}category'),
+
     );
       var jsonBody = jsonDecode(response.body);
       for(Map category in jsonBody){

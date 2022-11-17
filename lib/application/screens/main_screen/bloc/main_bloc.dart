@@ -15,7 +15,8 @@ class MainScreenBloc extends Bloc<MainEvent, MainScreenState> {
       final failureOrCategories = await categoriesUseCases.getCategories();
       failureOrCategories.fold(
               (failure) => emit(MainScreenError(error: failure)),
-              (categories) => emit(MainScreenLoaded(categories: categories) ));
+              (categories) => emit(MainScreenLoaded(categories: categories,) ));
+
 
     });
   }

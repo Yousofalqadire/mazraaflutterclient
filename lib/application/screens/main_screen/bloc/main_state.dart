@@ -11,10 +11,16 @@ class MainScreenInitial extends MainScreenState {}
 class MainScreenLoading extends MainScreenState{}
 class MainScreenLoaded extends MainScreenState{
   final List<CategoryEntity> categories;
- const MainScreenLoaded({required this.categories});
+
+ const MainScreenLoaded({required this.categories,});
 }
 class MainScreenError extends MainScreenState{
   final String error;
  const MainScreenError({ required this.error});
+}
+class AnimationCategoryState extends MainScreenState{
+  double width;
+  double height;
+  AnimationCategoryState({required this.height,required this.width});
 }
 
