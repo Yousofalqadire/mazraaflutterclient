@@ -11,10 +11,7 @@ import '../../ad_details_screen/ad_deails_page.dart';
 
 class AdWidget extends StatelessWidget {
  const  AdWidget({Key? key,required this.ad,}) : super(key: key);
-
-
    final AdEntity ad;
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

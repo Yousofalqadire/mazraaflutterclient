@@ -10,7 +10,7 @@ import 'package:mazraa/constant_values.dart';
 import 'package:mazraa/domin/dtos/pagination_result.dart';
 import 'package:mazraa/theme_service.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import '../../../domin/entities/ad_entity.dart';
 import '../ad_details_screen/ad_deails_page.dart';
 class AdsScreen extends StatefulWidget {
@@ -75,16 +75,22 @@ class _AdsScreenState extends State<AdsScreen> {
                       children: [
                         SizedBox(
                           height: 500,
-                          child: GridView.builder(
-                            itemCount:ads.length,
-                              gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 1,
-                                  crossAxisSpacing: 5.0
-                              ),
-                              itemBuilder: (context,index){
-                                //TODO
-                                return AdWidget(ad:ads[index],);
-                              },
+                          //TODO
+                          // animation not working
+                          child: AnimationLimiter(
+                            child: GridView.count(crossAxisCount: 1,
+                             children:List.generate(ads.length, (index){
+                               return AnimationConfiguration.staggeredGrid(
+                                   duration: const Duration(milliseconds: 700),
+                                   position: index, columnCount: 2,
+                                   child: ScaleAnimation(
+                                     child: FadeInAnimation(
+                                       child:AdWidget(ad: ads[index],) ,
+                                     ),
+                                   ),
+                               );
+                             }),
+                            ),
                           ),
                         ),
                         SizedBox(

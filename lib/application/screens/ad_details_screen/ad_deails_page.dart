@@ -2,9 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mazraa/application/screens/ad_details_screen/widgets/ad_details_widget.dart';
+import 'package:mazraa/application/screens/ad_details_screen/widgets/ad_images_list_widget.dart';
 import 'package:mazraa/constant_values.dart';
 import 'package:provider/provider.dart';
 
+import '../../../theme_service.dart';
 import 'bloc/ad_details_bloc.dart';
 
 class AdDetailScreenWrapper extends StatelessWidget {
@@ -38,7 +41,7 @@ class AdDetailsScreen extends StatelessWidget {
             Provider.of<AdDetailsBloc>(context,listen: false).add(GetAdDetailsEvent(adId: adId));
           }else if(state is AdDetailsLoadingState){
             return Center(
-              child: CircularProgressIndicator(color:appTheme.appBarTheme.backgroundColor ,strokeWidth: 8.0,),
+              child: CircularProgressIndicator(color:appTheme.appBarTheme.backgroundColor ,strokeWidth: 4.0,),
             );
           }else if(state is AdDetailsLoadedState){
             return Container(
@@ -47,36 +50,7 @@ class AdDetailsScreen extends StatelessWidget {
 
               child: Stack(
                 children: [
-                  Positioned(
-                    top: 20.0,
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      child: SizedBox(
-                        height: size.height * 0.20,
-                        child: Container(
-                          width: size.width,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                              itemCount: state.detailsEntity.images?.length,
-                              itemBuilder: (context,index){
-                            return Card(
-                              elevation: 15.0,
-                              shadowColor: Colors.black54,
-                              child: Container(
-                                padding: EdgeInsets.all(8.0),
-                                margin: EdgeInsets.all(10.0),
-                                child: Image.network('${ConstantValues.path}/uploads/uploads${state.detailsEntity.images?[index].imageURL}',
-                                   fit: BoxFit.contain,
-                                  width: 200,
-                                  height: 50,
-                                ),
-                              ),
-                            );
-                          }),
-                        ),
-                      ),
-                    ),
-                  ),
+                  AdImages(images: state.detailsEntity.images!,),
                   Positioned(
                       top: 210,
                       child:  Container(
@@ -93,11 +67,12 @@ class AdDetailsScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                     child: Container(
                       width: size.width ,
-                      height: size.height * 0.60,
+                      height: size.height * 0.20,
                       decoration:const BoxDecoration(
                         borderRadius: BorderRadius.only(topRight:Radius.circular(20.0),topLeft: Radius.circular(20.0)),
-                        color: Colors.white
+
                       ),
+                       child: AdDetailsWidget(adDetailsEntity: state.detailsEntity,),
                     ),
               ),
                 ],

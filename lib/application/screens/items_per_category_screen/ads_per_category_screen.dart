@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mazraa/application/screens/items_per_category_screen/widgets/ad_per_category_list_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../domin/entities/category_entity.dart';
@@ -38,7 +39,7 @@ class AdPerCategoryScreen extends StatelessWidget {
           }else if (state is AdsPerCategoryLoadingState){
             return Center(child: CircularProgressIndicator(color:appTheme.appBarTheme.backgroundColor ,),);
           }else if (state is AdsPerCategoryLoadedState){
-            return Center(child: Text(state.ads[0].address),);
+            return AdPErCategoryList(ads: state.ads,);
           }else if(state is AdsPerCategoryErrorState){
             return Center(child: Text(state.error),);
           }
