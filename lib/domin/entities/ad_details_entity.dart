@@ -15,6 +15,7 @@ class AdDetailsEntity{
   final String address;
   final String floors;
   final String rooms;
+  final String discription;
    List<AdImage>? images;
     AdDetailsEntity(
        {
@@ -30,12 +31,13 @@ class AdDetailsEntity{
          required this.address,
          required this.floors,
          required this.rooms,
+         required this.discription,
   });
   factory AdDetailsEntity.fromJson(Map<dynamic,dynamic> json){
     return AdDetailsEntity(adId: json['adId'], title: json['title'], category: json['category'],
         price: json['price'], mobile: json['mobile'], alterMobile: json['alterMobile'],
         email: json['email'], isApproved: json['isApproved'],
         postedDate: json['postedDate'], address: json['address'],
-        floors: json['floors'], rooms: json['rooms']);
+        floors: json['floors'], rooms: json['rooms'],discription:json['discription']);
   }
 }

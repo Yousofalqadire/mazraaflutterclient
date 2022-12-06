@@ -1,13 +1,15 @@
-
+/// this screen has been changed
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:mazraa/theme_service.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../domin/entities/category_entity.dart';
 import '../../ads_screen/ads_screen_page.dart';
+import '../../home_screen/home_screen.dart';
 import '../../items_per_category_screen/ads_per_category_screen.dart';
 
 class CategoryWidget extends StatefulWidget {
@@ -34,115 +36,73 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Stack(
+      width: size.width,
+      height: size.height,
+      child: Column(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-              color: Provider.of<ThemeService>(context).isDarkMode? appTheme.appBarTheme.backgroundColor:  Color(0xFF689F38),
-            ),
-          ),
-          Positioned(
-            top: 25.0,
-            right: 50.0,
-            left: 50.0,
-            child: Center(
-              child: Column(
-                children: [
-                 // Image.asset('assets/images/homepage.jpeg'),
-                  Text('المزرعة', style: Theme.of(context).textTheme.headlineMedium,),
-                  Text('هي بوابتك للعثور على عروض متخصصة للفلل والمزارع للإيجار أو البيع',style: Theme.of(context).textTheme.titleLarge,
-                    textDirection: TextDirection.rtl,),
-                ],
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black26,
+                borderRadius: BorderRadius.only(bottomLeft:Radius.circular(20),bottomRight: Radius.circular(20)),
+              ),
+              child:  Container(
+                height: 200,
+                decoration: BoxDecoration(
+                 // borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                  gradient: LinearGradient(
+                    colors:Provider.of<ThemeService>(context).isDarkMode?[
+                      Colors.blueGrey.shade400,
+                      Colors.blueGrey.shade700
+                    ]: [
+                      Color(0xFFE8CB00),
+                      Color(0xFF47B47D),
+
+                    ],
+                    begin: Alignment.bottomCenter
+                  )
+                ),
+                child: Center(child: Image.asset('assets/images/m_Ico.png',
+                  width: size.width *0.50,
+                  height: size.height * 0.50,
+                ),
+                ),
               ),
             ),
           ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.60,
+          Expanded(child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
-              color: Provider.of<ThemeService>(context).isDarkMode? appTheme.scaffoldBackgroundColor: Colors.white,
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
             ),
-             child: Center(
+            child: Padding(padding: EdgeInsets.symmetric(horizontal: 20),
+             child: Container(
+
                child: Column(
                  children: [
-                   SizedBox(
-                     height: MediaQuery.of(context).size.height * 0.15,
-                     child: Center(
-                       child: Text('اختر ما تبحث عنه',style: Theme.of(context).textTheme.headline4,),
-
-                     ),
+                   Text('مرحبا بكم في ',style: appTheme.textTheme.headline4,),
+                   Text('Mazare3.com',style: appTheme.textTheme.headline4,),
+                   Text('دعونا نجد الأفضل لراحتك تطبيق مزارع بوابتك للعثور على أفضل عروض الفيلا و المزارع و الشاليهات للايجار و الشراء',
+                    style: appTheme.textTheme.titleLarge,
+                     textAlign: TextAlign.center,
                    ),
-                   SizedBox(
-                     height:MediaQuery.of(context).size.height * 0.25 ,
-                     child: Padding(
-                       padding: const EdgeInsets.all(20.0),
-                       child: Center(
-                         child: ListView.builder(
-                           scrollDirection: Axis.horizontal,
-                             itemCount: widget.categories.length,
-                             itemBuilder: (context,index){
-                           return InkWell(
-                             onTap: (){
-                               Navigator.push(context, MaterialPageRoute(
-                                   builder: (context)=> AdsPerCategoryWrapper(category:categories[index],)));
-                             },
-                             child: Padding(
-                               padding: EdgeInsets.symmetric(horizontal: 10.0),
-                               child: AnimatedContainer(
-                                 padding: EdgeInsets.all(25.0),
-                                 decoration: BoxDecoration(
-                                   borderRadius: BorderRadius.circular(20.0),
-                                   color: index / 2 == 0 ? Colors.green : Colors.amber,
-                                 ),
-                                 margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                   width: width,
-                                   height: height,
-                                   duration:const Duration(seconds: 2),
-                                 curve: Curves.easeInOutBack,
-                                 child: Center(
-                                   child: Text('${categories[index].categoryName}',
-                                    style: Theme.of(context).textTheme.headline6?.merge(TextStyle(
-                                      color:Provider.of<ThemeService>(context).isDarkMode? Colors.white:Colors.black
-                                    )),
-                                   ),
-                                 ),
-
-                               ),
-                             ),
-                           );
-                         }),
+                   ElevatedButton(
+                       style: ButtonStyle(
+                         backgroundColor: MaterialStateProperty.all(appTheme.appBarTheme.backgroundColor),
+                         shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+                         padding: MaterialStateProperty.all(EdgeInsets.all(15))
                        ),
-                     ),
-                   ),
-                   Container(
-                     width: MediaQuery.of(context).size.width,
-                     alignment: Alignment.bottomCenter,
-                     height: 150.0,
-                     child: ListTile(
-                       leading: Icon(Icons.cabin,color: Colors.lightGreen),
-                       title: Text('يالله نشوف كل المزارع...',
-                         textAlign: TextAlign.center,
-                         textDirection: TextDirection.rtl
-                         ,style: Theme.of(context).textTheme.bodySmall,),
-                       trailing: Icon(Icons.arrow_forward_ios_outlined,color: Colors.lightGreen,),
-                       onTap: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context) =>  const AdsScreen()));
-                       },
-                     ),
-                   ),
+                       onPressed: (){
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen(categories:categories,)));
+                       }, child: Center(
+                     child: Icon(Icons.arrow_forward),
+                   ))
                  ],
                ),
              ),
-          ),
-          ),
+            ),
+          ))
         ],
       ),
     );

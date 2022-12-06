@@ -11,7 +11,7 @@ class AppTheme {
   static final Color _lightPrimaryVariantColor = Colors.blueGrey.shade800;
   static final Color _lightOnPrimaryColor = Colors.blueGrey.shade200;
   static const Color _lightTextColorPrimary = Colors.black;
-  static const Color _appbarColorLight = Color(0xFF689F38);
+  static const Color _appbarColorLight = Color(0xFF47B47D);
 
   static final Color _darkPrimaryColor = Colors.blueGrey.shade900;
   static const Color _darkPrimaryVariantColor = Colors.black;
@@ -21,7 +21,7 @@ class AppTheme {
 
   static const Color _iconColor = Colors.white;
 
-  static const Color _accentColor = Color.fromRGBO(16, 93, 4, 1.0);
+  static const Color _accentColor = Color(0xFF47B47D);
 
   // *****************
   // Text Style - light

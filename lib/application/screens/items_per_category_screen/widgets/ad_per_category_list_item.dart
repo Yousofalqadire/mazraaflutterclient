@@ -18,6 +18,7 @@ class AdPerCategoryItem extends StatelessWidget {
         Navigator.push(context, MaterialPageRoute(builder: (context)=> AdDetailScreenWrapper(adId: adEntity.adId ,)));
       },
       child: Container(
+        height: size.height / 3,
            margin:const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
@@ -51,10 +52,7 @@ class AdPerCategoryItem extends StatelessWidget {
                     Text('الموبايل')
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [],
-                ),
+
               ],
             ),
             Row(

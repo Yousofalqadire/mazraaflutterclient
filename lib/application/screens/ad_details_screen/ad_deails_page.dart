@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mazraa/application/screens/ad_details_screen/widgets/ad_details_widget.dart';
-import 'package:mazraa/application/screens/ad_details_screen/widgets/ad_images_list_widget.dart';
+import 'package:mazraa/application/screens/ad_details_screen/widgets/carousel_slider_images.dart';
 import 'package:mazraa/constant_values.dart';
 import 'package:provider/provider.dart';
 
@@ -44,39 +44,33 @@ class AdDetailsScreen extends StatelessWidget {
               child: CircularProgressIndicator(color:appTheme.appBarTheme.backgroundColor ,strokeWidth: 4.0,),
             );
           }else if(state is AdDetailsLoadedState){
-            return Container(
-              width: size.width ,
-              height: size.height,
-
-              child: Stack(
-                children: [
-                  AdImages(images: state.detailsEntity.images!,),
-                  Positioned(
-                      top: 210,
-                      child:  Container(
-                        width: size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children:const [
-                            Icon(Icons.arrow_back),
-                            Icon(Icons.arrow_forward),
-                          ],
-                        ),
-                      )),
-                  Align(
-                  alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: size.width ,
-                      height: size.height * 0.20,
-                      decoration:const BoxDecoration(
-                        borderRadius: BorderRadius.only(topRight:Radius.circular(20.0),topLeft: Radius.circular(20.0)),
-
-                      ),
-                       child: AdDetailsWidget(adDetailsEntity: state.detailsEntity,),
+            return Column(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: CarouselImagesSlider(imageSliders: state.detailsEntity.images!,),),
+                Expanded(child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF47B47D),
+                      borderRadius: BorderRadius.circular(20)
                     ),
-              ),
-                ],
-              ),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(state.detailsEntity.discription,textAlign: TextAlign.center,),
+                      ),
+                    ),
+                  ),
+                ),),
+                Expanded(
+
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AdDetailsWidget(adDetailsEntity: state.detailsEntity,),
+                  ),)
+              ],
             );
           }else if(state is AdDetailsErrorsState){
             return Center(
